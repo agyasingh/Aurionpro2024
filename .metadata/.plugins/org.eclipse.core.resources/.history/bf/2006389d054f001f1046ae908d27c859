@@ -1,0 +1,17 @@
+package com.aurionpro.creational.factory.test;
+
+import com.aurionpro.creational.factory.model.CarFactory;
+import com.aurionpro.creational.factory.model.ICar;
+
+public class CarFactoryTest {
+
+	public static void main(String[] args) {
+		
+		ICar car;
+		
+		car=CarFactory.makeCar("Maruti");
+		car.start();
+		car.stop();
+				
+	}
+}

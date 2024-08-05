@@ -1,0 +1,14 @@
+package com.aurionpro.model;
+
+import java.util.List;
+
+public class WhatsappBookNotifier implements IBookNotifier{
+
+	
+	public void notify(Library library, Book book, String user) {
+		// TODO Auto-generated method stub
+		System.out.println("Whatsapp Notification " + user + "has " + "on book " +  book.getTitle());
+		
+	}
+
+}

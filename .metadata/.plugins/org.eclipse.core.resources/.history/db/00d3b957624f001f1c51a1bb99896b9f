@@ -1,0 +1,43 @@
+package com.aurionpro.creational.builder.model;
+
+public class Car {
+
+	private String make;
+	private String model;
+	private int year;
+	private String color;
+    private String engineType;
+	private boolean sunroof;
+    private boolean gps;
+	private boolean bluetooth;
+	private int numberOfDoors;
+	
+	//Constructors with many parameters
+	
+		
+	
+
+	public Car(String make, String model, int year, String color, String engineType, boolean sunroof,
+			boolean gps, boolean bluetooth, int numberOfDoors) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.color = color;
+		this.engineType = engineType;
+		this.sunroof = sunroof;
+		this.gps = gps;
+		this.bluetooth = bluetooth;
+		this.numberOfDoors = numberOfDoors;
+	}
+
+	@Override
+	public String toString() {
+		return "Car [make=" + make + ", model=" + model + ", year=" + year + ", color=" + color + ", engineType="
+				+ engineType + ", sunroof=" + sunroof + ", gps=" + gps + ", bluetooth=" + bluetooth + ", numberOfDoors="
+				+ numberOfDoors + "]";
+	}
+	
+	
+}

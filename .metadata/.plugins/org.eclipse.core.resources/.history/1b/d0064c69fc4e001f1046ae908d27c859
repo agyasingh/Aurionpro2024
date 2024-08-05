@@ -1,0 +1,5 @@
+package com.aurionpro.singleton.test;
+
+public class Database {
+
+}

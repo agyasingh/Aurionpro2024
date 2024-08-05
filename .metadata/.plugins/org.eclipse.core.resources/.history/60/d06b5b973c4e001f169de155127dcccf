@@ -1,0 +1,7 @@
+package com.aurionpro.solution.model;
+
+public interface IWorkable extends IWorker {
+	
+public void start();
+public void stop();
+}

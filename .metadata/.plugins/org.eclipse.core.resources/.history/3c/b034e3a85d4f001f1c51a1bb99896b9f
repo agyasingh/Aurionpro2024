@@ -1,0 +1,10 @@
+package com.aurionpro.creational.builder.test;
+
+import com.aurionpro.creational.builder.model.Car;
+
+public class CarTest {
+public static void main(String[] args) {
+	Car car=new Car("Toyota", "Camry", 2021, "Red", "V6", true, true, true, 4);
+	System.out.println(car);
+}
+}

@@ -1,0 +1,22 @@
+package com.aurionpro.model;
+
+public class EmailNotifier implements INotifier {
+
+	private long amount;
+	Account account;
+	
+	
+	public EmailNotifier(long amount, Account account) {
+		super();
+		this.amount = amount;
+		this.account = account;
+	}
+
+
+	@Override
+	public void notify(long amount) {
+		// TODO Auto-generated method stub
+		System.out.println("Your balance is" + amount);
+	}
+
+}

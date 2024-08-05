@@ -1,0 +1,11 @@
+package com.aurionpro.model;
+
+public class EmailNotifier implements INotifier {
+
+	@Override
+	public void notfiy(int amount) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,13 @@
+package com.aurionpro.model;
+
+public class SMSNotifier implements INotifier {
+	
+	private String notification;
+
+	@Override
+	public String notfiy(String notification) {
+		// TODO Auto-generated method stub
+		return notification;
+	}
+
+}

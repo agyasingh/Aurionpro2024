@@ -1,0 +1,43 @@
+package com.aurionpro.creational.builder.model;
+
+public class Car {
+    private String make;
+    private String model;
+    private int year;
+    private String color;
+    private String engineType;
+    private boolean sunroof;
+    private boolean gps;
+    private boolean bluetooth;
+    private int numberOfDoors;
+
+    // Private constructor to restrict instantiation
+    public Car(CarBuilder builder) {
+        this.make = builder.make;
+        this.model = builder.model;
+        this.year = builder.year;
+        this.color = builder.color;
+        this.engineType = builder.engineType;
+        this.sunroof = builder.sunroof;
+        this.gps = builder.gps;
+        this.bluetooth = builder.bluetooth;
+        this.numberOfDoors = builder.numberOfDoors;
+    }
+
+    
+
+	@Override
+    public String toString() {
+        return "Car{" +
+                "make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                ", color='" + color + '\'' +
+                ", engineType='" + engineType + '\'' +
+                ", sunroof=" + sunroof +
+                ", gps=" + gps +
+                ", bluetooth=" + bluetooth +
+                ", numberOfDoors=" + numberOfDoors +
+                '}';
+    }
+}

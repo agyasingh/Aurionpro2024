@@ -1,0 +1,18 @@
+package com.aurionpro.model;
+
+public class SMSNotifier implements INotifier {
+    private int amount;
+    private Account account;
+
+    public SMSNotifier(int amount, Account account) {
+        this.amount = amount;
+        this.account = account;
+    }
+
+    @Override
+    public void notify(int amount) {
+        if (account.getNotifiers().contains(this)) {
+            System.out.println("The amount has been credited : " + amount);
+        }
+    }
+}

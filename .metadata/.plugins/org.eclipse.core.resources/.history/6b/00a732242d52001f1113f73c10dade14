@@ -1,0 +1,66 @@
+package com.aurionpro.test;
+
+
+
+import java.util.Scanner;
+
+import com.aurionpro.model.Book;
+import com.aurionpro.model.EmailBookNotfier;
+import com.aurionpro.model.Library;
+import com.aurionpro.model.SMSBookNotifier;
+import com.aurionpro.model.WhatsappBookNotifier;
+
+public class User {
+	public static Scanner scanner=new Scanner(System.in);
+	User user;	
+	 static Library library;
+	static Book book;
+	public static void main(String[] args) {
+		BookCreation();
+		
+		AskUser();
+		
+		
+	
+		
+		
+	}
+	
+	private static void AddBook(Book book) {
+		// TODO Auto-generated method stub
+		library.addBook(book);	
+	}
+
+	public static void BookCreation(){
+		System.out.println("Enter the number of books you want to create");
+		int numberofbooks=scanner.nextInt();
+		for(int i=0;i<numberofbooks;i++) {
+			System.out.println("Enter book name");
+			String name=scanner.next();
+
+			System.out.println("Author name");
+			String authorname=scanner.next();
+				
+			book=new Book(name,authorname);
+			library=new Library(book);
+			AddBook(book);
+		}
+		
+		
+	}
+	private static void AskUser() {
+		// TODO Auto-generated method stub
+		System.out.println("Where do you want notification. 1.Email, 2.SMS, 3.Whatsapp");
+		int choice=scanner.nextInt();
+		
+		if(choice==1) {
+			library.registerbooknotifiers(new EmailBookNotfier());
+		}
+		else if(choice==2) {
+			library.registerbooknotifiers(new SMSBookNotifier());
+		}
+		else if(choice==3) {
+			library.registerbooknotifiers(new WhatsappBookNotifier());
+			}
+	}
+}

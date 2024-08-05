@@ -1,0 +1,13 @@
+package com.aurionpro.test;
+
+import com.aurionpro.model.IPlayer;
+import com.aurionpro.model.PlayGame;
+import com.aurionpro.model.Player1;
+
+public class TictactoeTest {
+	public static void main(String[] args) {
+		PlayGame playingTicTacToe=new PlayGame();
+		playingTicTacToe.playingtictactoe
+	}
+
+}

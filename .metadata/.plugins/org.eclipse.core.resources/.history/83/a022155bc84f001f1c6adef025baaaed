@@ -1,0 +1,11 @@
+package com.aurionpro.model;
+
+public class SoundSystem implements On {
+
+	@Override
+	public void On() {
+		// TODO Auto-generated method stub
+		System.out.println("Turning on sound system");
+	}
+
+}

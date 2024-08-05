@@ -1,0 +1,5 @@
+package com.aurionpro.model;
+
+public interface IBookNotifier {
+public void notify(Library library,Book book,String user,String action);
+}

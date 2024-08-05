@@ -1,0 +1,10 @@
+package com.aurionpro.violation.test;
+
+import com.aurionpro.violation.model.Circle;
+
+public class ShapeTest {
+public static void main(String[] args) {
+	Circle circle=new Circle(8);
+	circle.area();
+}
+}

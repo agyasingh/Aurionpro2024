@@ -1,0 +1,28 @@
+package com.aurionpro.model;
+
+import java.util.Scanner;
+
+public class Player1 implements IPlayer {
+	public static Scanner scanner=new Scanner(System.in);
+
+	@Override
+	public void play() {
+		// TODO Auto-generated method stub
+		System.out.println("Enter 1 for X and 0 for 0");
+		System.out.println("Enter the position where you want to insert your choice.Enter the row number and column number");
+		int row=scanner.nextInt();
+		int column=scanner.nextInt();
+		int choice=scanner.nextInt();
+		int matrix[][]=new int[row][column] ;
+		
+				if(choice==1) {
+				matrix[row][column]="X";
+				}
+				else if(choice==0) {System.out.println("0");}
+				System.out.println("Invalid choice please chose either 1 or 0");
+			
+			}
+		
+	
+
+}

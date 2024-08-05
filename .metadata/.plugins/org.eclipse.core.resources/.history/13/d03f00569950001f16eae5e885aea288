@@ -1,0 +1,9 @@
+package com.aurionpro.model;
+
+public interface IPacketState {
+	
+	void next();
+	void current();
+	void previous();
+
+}

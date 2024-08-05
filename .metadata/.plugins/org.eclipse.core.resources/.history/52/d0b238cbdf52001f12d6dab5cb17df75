@@ -1,0 +1,64 @@
+package com.aurionpro.test;
+
+import com.aurionpro.model.Player;
+import com.aurionpro.model.TicTacBoard;
+
+public class Game {
+	 public static void main(String[] args) {
+	        TicTacBoard board = new TicTacBoard();
+	        Player bob = new Player('X'); // Bob plays with 'X'
+	        Player mary = new Player('O'); // Mary plays with 'O'
+
+	        Player currentPlayer = bob; // Start with Bob
+
+	        // Game loop
+	        while (!board.isBoardFull() && !board.checkForWin()) {
+	            // Display current board state
+	            displayBoard(board);
+
+	            // Prompt current player for move
+	            System.out.println("Current turn: Player " + currentPlayer.getSymbol());
+	            boolean validMove = false;
+	            while (!validMove) {
+	                int[] move = getPlayerMove(currentPlayer);
+	                validMove = board.makeMove(move[0], move[1], currentPlayer.getSymbol());
+	                if (!validMove) {
+	                    System.out.println("Invalid move. Try again.");
+	                }
+	            }
+
+	            // Switch players
+	            currentPlayer = (currentPlayer == bob) ? mary : bob;
+	        }
+
+	        // Game over
+	        displayBoard(board);
+	        if (board.checkForWin()) {
+	            System.out.println("Player " + currentPlayer.getSymbol() + " wins!");
+	        } else {
+	            System.out.println("It's a draw!");
+	        }
+	    }
+
+	    public static void displayBoard(TicTacToeBoard board) {
+	        System.out.println("Current Board:");
+	        for (int i = 0; i < 3; i++) {
+	            for (int j = 0; j < 3; j++) {
+	                System.out.print(board.getBoard()[i][j] + " ");
+	            }
+	            System.out.println();
+	        }
+	    }
+
+	    public static int[] getPlayerMove(Player player) {
+	        // Simulate getting player's move (e.g., from input)
+	        // For simplicity, this example reads from standard input (System.in)
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter row (0-2) for Player " + player.getSymbol() + ": ");
+	        int row = scanner.nextInt();
+	        System.out.print("Enter column (0-2) for Player " + player.getSymbol() + ": ");
+	        int col = scanner.nextInt();
+	        return new int[]{row, col};
+	    }
+
+}

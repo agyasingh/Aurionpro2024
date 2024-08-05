@@ -1,0 +1,27 @@
+package com.aurionpro.test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
+
+import com.aurionpro.model.IStudentService;
+
+class StudentTest {
+	
+	private IStudentService studentservice;
+	
+	voidinit(){
+		
+	}
+
+//	@AfterAll
+//	static void tearDownAfterClass() throws Exception {
+//	}
+
+	@Test
+	void test() {
+		fail("Not yet implemented");
+	}
+
+}

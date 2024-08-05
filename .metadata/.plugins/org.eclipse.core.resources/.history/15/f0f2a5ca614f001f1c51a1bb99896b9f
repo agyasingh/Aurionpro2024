@@ -1,0 +1,58 @@
+package com.aurionpro.creational.builder.model;
+
+public class CarBuilder {
+	    private String make;
+	    private String model;
+	    private int year;
+	    private String color;
+	    private String engineType;
+	    private boolean sunroof;
+	    private boolean gps;
+	    private boolean bluetooth;
+	    private int numberOfDoors;
+	    
+	    public CarBuilder(String make,String model) {
+	    	this.make=make;
+	    	this.model=model;
+	    }
+	    
+	    public CarBuilder year(int year) {
+	        this.year = year;
+	        return this;
+	    }
+	    
+	    public CarBuilder color(String color) {
+	        this.color = color;
+	        return this;
+	    }
+
+	    public CarBuilder engineType(String engineType) {
+	        this.engineType = engineType;
+	        return this;
+	    }
+
+	    public CarBuilder sunroof(boolean sunroof) {
+	        this.sunroof = sunroof;
+	        return this;
+	    }
+
+	    public CarBuilder gps(boolean gps) {
+	        this.gps = gps;
+	        return this;
+	    }
+
+	    public CarBuilder bluetooth(boolean bluetooth) {
+	        this.bluetooth = bluetooth;
+	        return this;
+	    }
+
+	    public CarBuilder numberOfDoors(int numberOfDoors) {
+	        this.numberOfDoors = numberOfDoors;
+	        return this;
+	    }
+	    
+	    public Car build() {
+	        return new Car(this);
+	    }
+
+}

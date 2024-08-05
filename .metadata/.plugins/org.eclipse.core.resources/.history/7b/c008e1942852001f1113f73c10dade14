@@ -1,0 +1,12 @@
+package com.aurionpro.model;
+
+public class EmailBookNotfier implements IBookNotifier {
+
+	@Override
+	public void notify(Library library, Book book, String user, String action) {
+		// TODO Auto-generated method stub
+		System.out.println("The"+action + "is performed by" + user + "on book" + book +"in the "
++ library);						
+	}
+
+}

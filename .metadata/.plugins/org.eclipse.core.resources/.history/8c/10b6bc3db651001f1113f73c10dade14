@@ -1,0 +1,23 @@
+package com.aurionpro.decorator.model;
+
+public class GoldenHat extends HatDecorator {
+IHat hat;
+StandardHat standardhat;
+	
+	
+	public GoldenHat(IHat hat, StandardHat standardhat) {
+	super(hat);
+	this.hat = hat;
+	this.standardhat = standardhat;
+}
+	public double getPrice() {
+		return 500 + standardhat.getPrice();
+	}
+	public String getName() {
+		return "aagya" + standardhat.getName();
+	}
+	public String getDescription() {
+		return "aagya" + standardhat.getDescription();
+	}
+
+}

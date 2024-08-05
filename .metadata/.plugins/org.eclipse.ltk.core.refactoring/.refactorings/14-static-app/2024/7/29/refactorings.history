@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;14-static-app&apos;&#x0D;&#x0A;- Original project: &apos;14-static-app&apos;&#x0D;&#x0A;- Original element: &apos;com.aurionpro.model.DemoTest.java&apos;" description="Delete element" element1="/src&lt;com.aurionpro.model{DemoTest.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1721281325669" subPackages="false" version="1.0"/>
+</session>

@@ -1,0 +1,18 @@
+package com.aurionpro.creational.factory.model;
+
+public class AccountFactory {
+
+	
+	public static IAccount makeAccount(AccountType accountName) {
+		IAccount account=null;  //we comparing objects that is why we are making it null
+		
+		
+		if(accountName==AccountType.SAVINGS)
+		    account=new SavingAccount(1200, "aagya", 1200);
+		if(accountName==AccountType.CURRENT)
+		    account=new CurrentAccount(1300, "sampada", 1400);
+		
+		
+		return account;
+	}
+}

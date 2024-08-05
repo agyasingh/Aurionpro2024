@@ -1,0 +1,22 @@
+File Handling
+
+Java.io package
+Creating object of File class>use file class
+Create,read,update,delete files
+
+Boolean type:
+canRead()
+canWrite()
+createNewFile()-create empty file
+deletes
+exists
+mkdir()-creates directory
+
+String
+getName
+getAbsolutePath()
+list()- array of files in directory.
+
+Long
+length()-size of files in bytes
+

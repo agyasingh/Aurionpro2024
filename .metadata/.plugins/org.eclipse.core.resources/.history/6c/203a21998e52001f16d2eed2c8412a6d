@@ -1,0 +1,14 @@
+package com.aurionpro.test;
+
+import com.aurionpro.model.IPlayer;
+import com.aurionpro.model.Player1;
+
+public class TictactoeTest {
+	public static void main(String[] args) {
+		System.out.println("Play your move -player1");
+		IPlayer player1=new Player1();
+		System.out.println("Play your move-player2");
+		IPlayer player2=new player2();
+	}
+
+}

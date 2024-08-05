@@ -1,0 +1,11 @@
+package com.aurionpro.abstractfactory.model;
+
+import com.aurionpro.creational.factory.model.CarType;
+import com.aurionpro.creational.factory.model.Maruti;
+
+public interface ICarFactory {
+ICars makeCar(CarType carName);
+
+if(carName==CarType.MARUTI)
+	car=new Maruti();
+}

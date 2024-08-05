@@ -1,0 +1,5 @@
+package com.aurionpro.singletone.model;
+
+public class Login {
+
+}

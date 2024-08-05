@@ -1,0 +1,7 @@
+package com.aurionpro.abstractfactory.model;
+
+public interface IAccount {
+	void credit();
+	void debit();
+
+}

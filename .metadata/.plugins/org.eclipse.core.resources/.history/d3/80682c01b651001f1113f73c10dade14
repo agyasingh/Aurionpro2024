@@ -1,0 +1,20 @@
+package com.aurionpro.decorator.model;
+
+public class GoldenHat extends HatDecorator {
+
+	public GoldenHat(IHat hat) {
+		super(hat);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public double getPrice() {
+		return 500 + super.getPrice();
+	}
+	public String getName() {
+		return "aagya" + super.getName();
+	}
+	public String getDescription() {
+		return "aagya" + super.getDescription();
+	}
+
+}

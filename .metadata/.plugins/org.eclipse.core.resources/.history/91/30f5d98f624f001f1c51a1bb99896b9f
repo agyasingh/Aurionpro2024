@@ -1,0 +1,22 @@
+package com.aurionpro.creational.builder.test;
+
+import com.aurionpro.creational.builder.model.Car;
+import com.aurionpro.creational.builder.model.CarBuilder;
+
+public class CarTest {
+    public static void main(String[] args) {
+        Car car = new CarBuilder("Toyota", "Camry")
+                        .year(2021)
+                        .color("Red")
+                        .engineType("V6")
+                        .sunroof(true)
+                        .gps(true)
+                        .bluetooth(true)
+                        .numberOfDoors(4)
+                        .build();
+        System.out.println(car);
+    }
+}
+
+
+//Problem analysis-constructor overload,parameter order,optional parameters.

@@ -1,0 +1,17 @@
+package com.aurionpro.creational.factory.model;
+
+public class CarFactory {
+//returning a reference of car from ICar
+	public static ICar makeCar(String carName) {
+		ICar car=null;  //we comparing objects that is why we are making it null
+		
+		if(carName=="Maruti")
+			car=new Maruti();
+		if(carName=="Mahindra")
+			car=new Mahindra();
+		if(carName=="Tata")
+			car=new Tata();
+		
+		return car;
+	}
+}

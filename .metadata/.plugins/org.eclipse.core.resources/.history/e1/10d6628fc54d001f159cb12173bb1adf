@@ -1,0 +1,45 @@
+package com.aurionpro.violation.test;
+
+import java.io.DataInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+public class ReadingFileTest {
+private static FileOutputStream fileoutputstream;
+private static DataInputStream datainputsstream;
+public static void main(String[] args) {
+	readDataFromKeyboard();
+	
+	readDataInputStream();
+}
+
+
+private static void readDataFromKeyboard() {
+	// TODO Auto-generated method stub
+	//reading data from keyboard- associate keyboard with input stream class
+	datainputsstream =new DataInputStream(System.in);
+	associateDataToFile();
+	
+}
+
+private static void associateDataToFile() {
+	// TODO Auto-generated method stub
+	try {
+	 fileoutputstream=new FileOutputStream("test.txt");
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+private static void readDataInputStream() {
+	// TODO Auto-generated method stub
+	ch=(char)datainputsstream.read();
+	fileoutputstream.write(ch);
+}
+
+private static void printLinesOfFile() {
+	// TODO Auto-generated method stub
+	
+}
+}

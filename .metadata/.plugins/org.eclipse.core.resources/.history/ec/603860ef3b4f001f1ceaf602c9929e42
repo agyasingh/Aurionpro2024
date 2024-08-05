@@ -1,0 +1,6 @@
+package com.aurionpro.abstractfactory.model;
+
+public class AccountFactory {
+
+	IAccount createAccount();
+}

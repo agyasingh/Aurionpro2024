@@ -1,0 +1,12 @@
+package com.aurionpro.creational.factory.model;
+
+public interface IAccount {
+
+	
+	void debit(double amount);
+	void credit(double amount);
+	static IAccount makeAccount(AccountType savings) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

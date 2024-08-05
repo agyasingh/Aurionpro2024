@@ -1,0 +1,5 @@
+package com.aurionpro.decorator.model;
+
+public class HatDecorator {
+
+}

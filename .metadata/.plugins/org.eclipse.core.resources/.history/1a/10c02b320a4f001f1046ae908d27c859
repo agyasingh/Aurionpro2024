@@ -1,0 +1,25 @@
+package com.aurionpro.abstractfactory.model;
+
+import com.aurionpro.creational.factory.model.CarType;
+import com.aurionpro.creational.factory.model.ICar;
+import com.aurionpro.creational.factory.model.Mahindra;
+import com.aurionpro.creational.factory.model.Maruti;
+import com.aurionpro.creational.factory.model.Tata;
+
+public class MarutiFactory implements ICarFactory{
+
+	
+	public static ICars makeCar(CarType carName) {
+		ICar car=null;  //we comparing objects that is why we are making it null
+		
+		
+		if(carName==CarType.MARUTI)
+			car=new Maruti();
+		if(carName==CarType.MAHINDRA)
+			car=new Mahindra();
+		if(carName==CarType.TATA)
+			car=new Tata();
+		
+		return car;
+	}
+}

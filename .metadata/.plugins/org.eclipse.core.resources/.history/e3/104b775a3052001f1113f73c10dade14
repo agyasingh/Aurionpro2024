@@ -1,0 +1,11 @@
+package com.aurionpro.model;
+
+public class SMSBookNotifier implements IBookNotifier{
+
+	@Override
+	public void notify(Library library, Book book, String user, String action) {
+		// TODO Auto-generated method stub
+		System.out.println("SMS Notfication " + user + "has " + action + "on " + book.getTitle());
+	}
+
+}

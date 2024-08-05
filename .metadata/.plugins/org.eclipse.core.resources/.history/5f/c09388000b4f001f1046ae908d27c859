@@ -1,0 +1,19 @@
+package com.aurionpro.abstractfactory.model;
+
+import com.aurionpro.creational.factory.model.CarType;
+import com.aurionpro.creational.factory.model.ICar;
+
+import com.aurionpro.creational.factory.model.Maruti;
+import com.aurionpro.creational.factory.model.Tata;
+
+public class MarutiFactory implements ICarFactory{
+
+
+	
+		 public  ICar makeCar() { 
+			 return new MarutiCar();
+		 }
+
+	
+
+}

@@ -1,0 +1,16 @@
+//package com.aurionpro.decorator.model;
+//
+//public abstract class HatDecorator implements IHat {
+//	IHat hat;
+//	
+//	public HatDecorator(IHat hat) {
+//		super();
+//		this.hat = hat;
+//	}
+//	public double getPrice() {
+//		return 
+//	}
+//	public String getName();
+//	public String getDescription();
+//
+//}

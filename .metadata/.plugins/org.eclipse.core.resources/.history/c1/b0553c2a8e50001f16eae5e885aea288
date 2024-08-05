@@ -1,0 +1,9 @@
+package com.aurionpro.model;
+
+public interface INotifier {
+	
+	public void SMSNotifier();
+	public void EmailNotifier();
+	public void AppNotifier();
+
+}

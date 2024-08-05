@@ -1,0 +1,17 @@
+Serialization>>
+converts object into byte stream>>platform independent
+to make object serializable>>java.io.Serializable interface
+FileOutputStream>>makes new file
+ObjectOutputStream>>converts object into byte stream>writeObject()method
+
+Advantages of Serialization 
+
+To save/persist state of an object. 
+To travel an object across a network.
+
+Deserialization>>
+converts byte stream into objects back.
+FileInputStream>>reads the file
+InputObjectStream>>converts byte stream to object
+
+
