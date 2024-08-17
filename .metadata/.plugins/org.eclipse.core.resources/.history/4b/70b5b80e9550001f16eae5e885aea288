@@ -1,7 +1,0 @@
-package com.aurionpro.model;
-
-public interface INotifier {
-
-	public void notfiy(int amount);
-
-}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"> <!-- bean definitions here -->
+
+<!-- Hardisk bean -->
+<bean class="com.aurionpro.model.Hardisk" name="hardisk"> <!-- Here the default constructor is called -->
+<!-- setter method is called using property tag -->
+<property name="capacity" value="10"></property>
+
+</bean>
+
+<!-- Computer bean >object creation>default constructor-->
+<bean class="com.aurionpro.model.Computer" name="computer" autowire="constructor">
+<!-- parametrized  const is called -->
+<constructor-arg name="name" value="apple"></constructor-arg>
+</bean>
+
+
+
+</beans>

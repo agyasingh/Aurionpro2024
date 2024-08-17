@@ -1,9 +1,0 @@
-package com.aurionpro.model;
-
-public interface IPacket {
-	
-	void next();
-	void current();
-	void previous();
-
-}

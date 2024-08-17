@@ -1,6 +1,0 @@
-package com.aurionpro.solution.model;
-
-public interface ILunchInterval extends {
-public void eat();
-public void rest();
-}

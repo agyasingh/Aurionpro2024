@@ -1,2 +1,4 @@
-browsers=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<web-browsers current\="0">\r\n<system/>\r\n<external location\="C\:\\Program Files\\Internet Explorer\\iexplore.exe" name\="Internet Explorer"/>\r\n<external location\="C\:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" name\="Chrome"/>\r\n</web-browsers>
+browser-choice=1
+browsers=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<web-browsers current\="1">\r\n<system/>\r\n<external location\="C\:\\Program Files\\Internet Explorer\\iexplore.exe" name\="Internet Explorer"/>\r\n<external location\="C\:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe" name\="Chrome"/>\r\n</web-browsers>
 eclipse.preferences.version=1
+internalWebBrowserHistory=http\://localhost\:8080/44-jsplogin-app/Login.jsp|*|http\://localhost\:8080/44-jsplogin-app/LoginController|*|http\://localhost\:8080/45-jspdemo-app/student|*|http\://localhost\:8080/38-servlets-app/NewFile.html|*|http\://localhost\:8080/38-servlets-app/FirstServlet?ok\=Go|*|http\://localhost\:8080/38-servlets-app/FirstServlet|*|

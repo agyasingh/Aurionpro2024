@@ -1,7 +1,0 @@
-package com.aurionpro.solution.model;
-
-public interface ILogger {
-public void printerror();
-
-void printerror(String err);
-}

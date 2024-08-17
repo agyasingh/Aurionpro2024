@@ -1,8 +1,0 @@
-package com.aurionpro.violation.model;
-
-public class AreaCalculator {
-public static void main(String[] args) {
-	Rectangle rectangle=new Rectangle(4,7);
-	rectangle.getArea();
-}
-}
