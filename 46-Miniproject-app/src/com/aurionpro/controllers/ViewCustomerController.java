@@ -41,12 +41,7 @@ public class ViewCustomerController extends HttpServlet {
 		
          customers = customerDb.getAllCustomers();
         
-//        if (customers.isEmpty()) {
-//            System.out.println("No customers found in the database.");
-//        } else {
-//            System.out.println("Customers found: " + customers.size());
-//        }
-
+//       
         request.setAttribute("customers", customers);
         dispatcher = request.getRequestDispatcher("ViewCustomers.jsp");
         dispatcher.forward(request, response);

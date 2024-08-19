@@ -12,6 +12,23 @@
 </head>
   
   <div class="flex flex-col">
+  
+  <div class="flex flex-col items-center justify-center p-4">
+    <!-- Search Form -->
+    <form action="SearchCustomerServlet" method="get" class="mb-4">
+    <input type="text" name="search" class="border rounded py-2 px-4 w-64" /> <!-- Increased width -->
+    <select name="searchType" class="border rounded py-2 px-4">
+        <option value="allcustomers">All Customers</option>
+        <option value="firstName">First Name</option>
+        <option value="lastName">Last Name</option>
+        <option value="email">Email</option>
+        <option value="phone">Phone</option>
+    </select>
+    <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Search</button>
+</form>
+
+</div>
+    
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             <div class="overflow-hidden">

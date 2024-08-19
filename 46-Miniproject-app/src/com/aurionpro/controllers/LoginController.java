@@ -56,11 +56,12 @@ public class LoginController extends HttpServlet {
                 if (dbConnection.validateCredentials(username, password, role, email)) {
                     redirectUrl = "AdminHome.jsp";
                     session.setAttribute("adminName", username);
-                    session.setAttribute("password", "password");
+                    session.setAttribute("password", password); // Store the actual password
                     session.setAttribute("email", email);
                     session.setAttribute("adminRole", role);
                 } else {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid admin credentials.");
+                    request.setAttribute("message", "Invalid admin credentials.");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
                     return;
                 }
             } 
@@ -69,15 +70,17 @@ public class LoginController extends HttpServlet {
                 if (customerDb.validateCustomer(username, password, email)) {
                     redirectUrl = "CustomerHome.jsp";
                     session.setAttribute("username", username);
-                    session.setAttribute("password",password);
+                    session.setAttribute("password", password); // Store the actual password
                     session.setAttribute("email", email);
                     session.setAttribute("role", role);
                 } else {
-                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid customer credentials.");
+                    request.setAttribute("message", "Invalid customer credentials.");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
                     return;
                 }
             } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unknown role.");
+                request.setAttribute("message", "Unknown role.");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
                 return;
             }
 
@@ -86,7 +89,8 @@ public class LoginController extends HttpServlet {
                 response.sendRedirect(redirectUrl);
             }
         } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Role parameter is missing.");
+            request.setAttribute("message", "Role parameter is missing.");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
     }
 

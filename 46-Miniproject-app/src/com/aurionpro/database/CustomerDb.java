@@ -167,7 +167,83 @@ public class CustomerDb {
         
         return accountNumbers;
     }
+    
+    public List<Customer> getCustomersByName(String name) {
+        List<Customer> customers = new ArrayList<>();
+        try (Connection conn = DbUtil.getConnection()) {
+            String sql = "SELECT * FROM customers WHERE first_name LIKE ? OR last_name LIKE ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name + "%");
+            stmt.setString(2, name + "%");
+            ResultSet rs = stmt.executeQuery();
 
+            while (rs.next()) {
+                Customer customer = new Customer();
+                // Set customer fields from result set
+                customer.setCustomerId(rs.getInt("customer_id"));
+                customer.setFirstName(rs.getString("first_name"));
+                customer.setLastName(rs.getString("last_name"));
+                customer.setEmail(rs.getString("email"));
+                customer.setPhone(rs.getString("phone"));
+                customer.setAddress(rs.getString("address"));
+                customers.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+
+
+
+    
+    // Method to search customers by first name
+    public List<Customer> searchCustomerByFirstName(String firstName) {
+        return searchCustomerByAttribute("first_name", firstName);
+    }
+
+    // Method to search customers by last name
+    public List<Customer> searchCustomerByLastName(String lastName) {
+        return searchCustomerByAttribute("last_name", lastName);
+    }
+
+    // Method to search customers by email
+    public List<Customer> searchCustomerByEmail(String email) {
+        return searchCustomerByAttribute("email", email);
+    }
+
+    // Method to search customers by phone
+    public List<Customer> searchCustomerByPhone(String phone) {
+        return searchCustomerByAttribute("phone", phone);
+    }
+
+    // Private helper method to handle the search by different attributes
+    private List<Customer> searchCustomerByAttribute(String attributeName, String attributeValue) {
+        List<Customer> customers = new ArrayList<>();
+        String query = "SELECT * FROM customers WHERE " + attributeName + " LIKE ?";
+        
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, "%" + attributeValue + "%");
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Customer customer = new Customer();
+                customer.setCustomerId(resultSet.getInt("customer_id"));              
+                customer.setFirstName(resultSet.getString("first_name"));
+                customer.setLastName(resultSet.getString("last_name"));
+                customer.setEmail(resultSet.getString("email"));
+                customer.setPhone(resultSet.getString("phone"));
+                customer.setAddress(resultSet.getString("address"));
+                customer.setPassword(resultSet.getString("password"));
+                customers.add(customer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
 
 
 

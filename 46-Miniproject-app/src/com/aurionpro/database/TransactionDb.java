@@ -14,24 +14,84 @@ import com.aurionpro.database.DbUtil;
 import com.aurionpro.entity.Transactions;
 
 public class TransactionDb {
+	
+	public String getAccountNumberByEmail(String email) {
+	    String sql = "SELECT a.account_number FROM accounts a JOIN customers c ON a.customer_id = c.customer_id WHERE c.email = ?";
 
+	    try (Connection connection = DbUtil.getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql)) {
+
+	        statement.setString(1, email);
+	        ResultSet resultSet = statement.executeQuery();
+
+	        if (resultSet.next()) {
+	            return resultSet.getString("account_number");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	
+	 public List<Transactions> getTransactionDetailByEmail(String email) {
+	        List<Transactions> transactions = new ArrayList<>();
+	        String query = "SELECT " +
+	                       "t.transaction_id, " +
+	                       "t.sender_accountno, " +
+	                       "t.receiver_accountno, " +
+	                       "t.transaction_type, " +
+	                       "t.amount, " +
+	                       "t.transaction_date " +
+	                       "FROM transactions t " +
+	                       "JOIN accounts a ON (t.sender_accountno = a.account_number OR t.receiver_accountno = a.account_number) " +
+	                       "JOIN customers c ON a.customer_id = c.customer_id " +
+	                       "WHERE c.email = ?";
+	        
+	        try (Connection conn = DbUtil.getConnection();
+	             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+	            stmt.setString(1, email);
+
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                while (rs.next()) {
+	                    Transactions transaction = new Transactions(
+	                        rs.getString("sender_accountno"),
+	                        rs.getString("receiver_accountno"),
+	                        rs.getString("transaction_type"),
+	                        rs.getBigDecimal("amount")
+	                    );
+	                    // Optionally, you can handle transactionId and transactionDate separately if needed
+	                    // For example:
+	                    // transaction.setTransactionId(rs.getInt("transaction_id"));
+	                    // transaction.setTransactionDate(rs.getTimestamp("transaction_date"));
+	                    transactions.add(transaction);
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace(); // Handle the exception properly in production code
+	        }
+	        
+	        return transactions;
+	    }
+	
+	
     // Method to create a new transaction with validation
     public boolean createTransaction(Transactions transaction) {
         if (!validateTransaction(transaction)) {
             return false; // If validation fails, return false
         }
 
-        String sql = "INSERT INTO transactions (account_id, sender_accountno, receiver_accountno, transaction_type, amount, transaction_date) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO transactions (sender_accountno, receiver_accountno, transaction_type, amount, transaction_date) VALUES ( ?, ?, ?, ?, ?)";
 
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setInt(1, transaction.getAccountId());
-            statement.setString(2, transaction.getSenderAccountNo());
-            statement.setString(3, transaction.getReceiverAccountNo());
-            statement.setString(4, transaction.getTransactionType());
-            statement.setBigDecimal(5, transaction.getAmount());
-            statement.setTimestamp(6, transaction.getTransactionDate());
+            
+            statement.setString(1, transaction.getSenderAccountNo());
+            statement.setString(2, transaction.getReceiverAccountNo());
+            statement.setString(3, transaction.getTransactionType());
+            statement.setBigDecimal(4, transaction.getAmount());
+            statement.setTimestamp(5, transaction.getTransactionDate());
 
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;

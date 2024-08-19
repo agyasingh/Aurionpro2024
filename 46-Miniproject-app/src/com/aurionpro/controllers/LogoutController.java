@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LogoutController
@@ -36,10 +37,14 @@ public class LogoutController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
-		 request.getSession().invalidate();
+		 HttpSession session = request.getSession(false); // Get the current session, if it exists
 
-	     response.sendRedirect("Login.jsp");
+	        if (session != null) {
+	            session.invalidate(); // Invalidate the session, logging the user out
+	        }
+
+	        // Redirect the user to the login page
+	        response.sendRedirect("Login.jsp");
+	    }
 	}
 
-}

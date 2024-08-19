@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.aurionpro.entity.Transactions" import="com.aurionpro.database.TransactionDb" import="java.util.List" %>
+<%@ page import="com.aurionpro.entity.Transactions" import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +39,8 @@
                 <tr>
                     <td class="border py-2 px-4"><%= transaction.getSenderAccountNo() %></td>
                     <td class="border py-2 px-4"><%= transaction.getReceiverAccountNo() %></td>
-                    <td class="border py-2 px-4"><%= transaction.getAmount().setScale(2) %></td>
                     <td class="border py-2 px-4"><%= transaction.getTransactionType() %></td>
+                    <td class="border py-2 px-4"><%= transaction.getAmount().setScale(2) %></td>
                     <td class="border py-2 px-4"><%= transaction.getTransactionDate() %></td>
                 </tr>
                 <% 
@@ -48,7 +48,7 @@
                     } else {
                 %>
                 <tr>
-                    <td colspan="4" class="border py-2 px-4 text-center">No transactions available.</td>
+                    <td colspan="5" class="border py-2 px-4 text-center">No transactions available.</td>
                 </tr>
                 <% 
                     }
