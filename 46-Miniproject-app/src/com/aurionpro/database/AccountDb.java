@@ -24,12 +24,13 @@ public class AccountDb {
 
         try {
             conn = DbUtil.getConnection();
-            String sql = "INSERT INTO accounts (customer_id, account_number, account_type, balance) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO accounts (customer_id, account_number, account_type, balance,email) VALUES (?, ?, ?, ?,?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, account.getCustomerId());
             pstmt.setString(2, account.getAccountNumber());
             pstmt.setString(3, account.getAccountType());
             pstmt.setDouble(4, account.getBalance());
+            pstmt.setString(5, account.getEmail());
            
 
             pstmt.executeUpdate();
@@ -60,7 +61,7 @@ public class AccountDb {
                 account.setAccountNumber(rs.getString("account_number"));
                 account.setAccountType(rs.getString("account_type"));
                 account.setBalance(rs.getDouble("balance"));
-                
+                account.setEmail(rs.getString("email"));
 
                 accounts.add(account);
             }

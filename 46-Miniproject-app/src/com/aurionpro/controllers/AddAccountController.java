@@ -51,8 +51,9 @@ public class AddAccountController extends HttpServlet {
 	        String accountNumber = request.getParameter("accountNumber");
 	        String accountType = request.getParameter("accountType");
 	        double balance = Double.parseDouble(request.getParameter("balance"));
+	        String email=request.getParameter("email");
 	        
-	        Account account = new Account(customerId, accountNumber, accountType, balance);
+	        Account account = new Account(customerId, accountNumber, accountType, balance,email);
 	        AccountDb accountDb = new AccountDb();
 
 	        try {

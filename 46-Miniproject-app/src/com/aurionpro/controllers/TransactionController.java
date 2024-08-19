@@ -79,14 +79,17 @@ public class TransactionController extends HttpServlet {
         // Perform the transaction based on the transaction type
         switch (transactionType.toLowerCase()) {
             case "credit":
-                transactionSuccess = transactionDb.creditAmount(senderAccountNo, amount);
+                // In credit, we credit the receiver's account
+                transactionSuccess = transactionDb.creditAmount(receiverAccountNo, amount);
                 break;
 
             case "debit":
+                // In debit, we debit the sender's account
                 transactionSuccess = transactionDb.debitAmount(senderAccountNo, amount);
                 break;
 
             case "transfer":
+                // For transfer, debit sender and credit receiver
                 transactionSuccess = transactionDb.transferAmount(senderAccountNo, receiverAccountNo, amount);
                 break;
 
@@ -98,11 +101,13 @@ public class TransactionController extends HttpServlet {
 
         // Check if the transaction was successful
         if (transactionSuccess) {
+            // Create a transaction record only if the transaction was successful
             if (transactionDb.createTransaction(transaction)) {
                 request.setAttribute("message", "Transaction completed successfully.");
-            } 
-        } 
-        else {
+            } else {
+                request.setAttribute("message", "Transaction could not be recorded. Please try again.");
+            }
+        } else {
             request.setAttribute("message", "Transaction could not be completed. Please check the details and try again.");
         }
 
@@ -111,6 +116,5 @@ public class TransactionController extends HttpServlet {
         request.setAttribute("receiverAccountNo", receiverAccountNo);
         request.setAttribute("amount", amount);
         request.getRequestDispatcher("MakeTransactions.jsp").forward(request, response);
-       
     }
 }

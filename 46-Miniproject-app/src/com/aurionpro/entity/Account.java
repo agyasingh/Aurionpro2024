@@ -8,6 +8,7 @@ public class Account {
     private String accountNumber; // account_number
     private String accountType; // account_type
     private double balance; // balance
+    private String email;
    
 
     // Default constructor
@@ -15,12 +16,13 @@ public class Account {
     }
 
     // Parameterized constructor
-    public Account(int customerId, String accountNumber, String accountType, double balance ) {
+    public Account(int customerId, String accountNumber, String accountType, double balance,String email ) {
       
         this.customerId = customerId;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.balance = balance;
+        this.email=email;
         
     }
 
@@ -64,6 +66,15 @@ public class Account {
     public void setBalance(double balance) {
         this.balance = balance;
     }
+    
+    public void setEmail(String email) {
+    	this.email=email;
+    }
+
+	public String getEmail() {
+		// TODO Auto-generated method stub
+		return email;
+	}
 
    
 }

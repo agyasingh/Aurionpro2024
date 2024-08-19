@@ -12,6 +12,18 @@
 
 <div class="flex items-center justify-center p-12">
     <div class="mx-auto w-full max-w-[550px] bg-white p-8 rounded-lg shadow-lg">
+    
+        <div>
+            <% 
+                String message = (String) request.getAttribute("message");
+                if (message != null && !message.isEmpty()) {
+            %>
+                <p class="text-blue-500 font-bold border border-blue-500 bg-blue-100 p-4 rounded">
+                    <%= message %>
+                </p>
+            <% } %>
+        </div>
+        
         <form action="TransactionController" method="post">
             
             <div class="mb-5">
@@ -43,15 +55,6 @@
                 <input type="number" step="0.01" name="amount" id="amount"
                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                     value="<%= request.getAttribute("amount") != null ? request.getAttribute("amount") : "" %>" />
-            </div>
-            
-            <div>
-                <% 
-                    String message = (String) request.getAttribute("message");
-                    if (message != null && !message.isEmpty()) {
-                %>
-                    <p class="text-red-500"><%= message %></p>
-                <% } %>
             </div>
             
             <div>

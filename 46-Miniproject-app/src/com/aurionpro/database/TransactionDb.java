@@ -1,6 +1,5 @@
 package com.aurionpro.database;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,83 +9,76 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aurionpro.database.DbUtil;
 import com.aurionpro.entity.Transactions;
 
 public class TransactionDb {
-	
-	public String getAccountNumberByEmail(String email) {
-	    String sql = "SELECT a.account_number FROM accounts a JOIN customers c ON a.customer_id = c.customer_id WHERE c.email = ?";
 
-	    try (Connection connection = DbUtil.getConnection();
-	         PreparedStatement statement = connection.prepareStatement(sql)) {
+    public String getAccountNumberByEmail(String email) {
+        String sql = "SELECT a.account_number FROM accounts a JOIN customers c ON a.customer_id = c.customer_id WHERE c.email = ?";
 
-	        statement.setString(1, email);
-	        ResultSet resultSet = statement.executeQuery();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-	        if (resultSet.next()) {
-	            return resultSet.getString("account_number");
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return null;
-	}
-	
-	 public List<Transactions> getTransactionDetailByEmail(String email) {
-	        List<Transactions> transactions = new ArrayList<>();
-	        String query = "SELECT " +
-	                       "t.transaction_id, " +
-	                       "t.sender_accountno, " +
-	                       "t.receiver_accountno, " +
-	                       "t.transaction_type, " +
-	                       "t.amount, " +
-	                       "t.transaction_date " +
-	                       "FROM transactions t " +
-	                       "JOIN accounts a ON (t.sender_accountno = a.account_number OR t.receiver_accountno = a.account_number) " +
-	                       "JOIN customers c ON a.customer_id = c.customer_id " +
-	                       "WHERE c.email = ?";
-	        
-	        try (Connection conn = DbUtil.getConnection();
-	             PreparedStatement stmt = conn.prepareStatement(query)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
 
-	            stmt.setString(1, email);
+            if (resultSet.next()) {
+                return resultSet.getString("account_number");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-	            try (ResultSet rs = stmt.executeQuery()) {
-	                while (rs.next()) {
-	                    Transactions transaction = new Transactions(
-	                        rs.getString("sender_accountno"),
-	                        rs.getString("receiver_accountno"),
-	                        rs.getString("transaction_type"),
-	                        rs.getBigDecimal("amount")
-	                    );
-	                    // Optionally, you can handle transactionId and transactionDate separately if needed
-	                    // For example:
-	                    // transaction.setTransactionId(rs.getInt("transaction_id"));
-	                    // transaction.setTransactionDate(rs.getTimestamp("transaction_date"));
-	                    transactions.add(transaction);
-	                }
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace(); // Handle the exception properly in production code
-	        }
-	        
-	        return transactions;
-	    }
-	
-	
-    // Method to create a new transaction with validation
+    public List<Transactions> getTransactionDetailByEmail(String email) {
+        List<Transactions> transactions = new ArrayList<>();
+        String query = "SELECT " +
+                       "t.transaction_id, " +
+                       "t.sender_accountno, " +
+                       "t.receiver_accountno, " +
+                       "t.transaction_type, " +
+                       "t.amount, " +
+                       "t.transaction_date " +
+                       "FROM transactions t " +
+                       "JOIN accounts a ON (t.sender_accountno = a.account_number OR t.receiver_accountno = a.account_number) " +
+                       "JOIN customers c ON a.customer_id = c.customer_id " +
+                       "WHERE c.email = ?";
+        
+        try (Connection conn = DbUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, email);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Transactions transaction = new Transactions(
+                        rs.getString("sender_accountno"),
+                        rs.getString("receiver_accountno"),
+                        rs.getString("transaction_type"),
+                        rs.getBigDecimal("amount")
+                    );
+                    transaction.setTransactionDate(rs.getTimestamp("transaction_date"));
+                    transactions.add(transaction);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return transactions;
+    }
+    
     public boolean createTransaction(Transactions transaction) {
         if (!validateTransaction(transaction)) {
             return false; // If validation fails, return false
         }
 
-        String sql = "INSERT INTO transactions (sender_accountno, receiver_accountno, transaction_type, amount, transaction_date) VALUES ( ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO transactions (sender_accountno, receiver_accountno, transaction_type, amount, transaction_date) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            
             statement.setString(1, transaction.getSenderAccountNo());
             statement.setString(2, transaction.getReceiverAccountNo());
             statement.setString(3, transaction.getTransactionType());
@@ -101,7 +93,6 @@ public class TransactionDb {
         return false;
     }
 
-    // Validation method for transactions
     private boolean validateTransaction(Transactions transaction) {
         if (transaction.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             System.out.println("Amount must be greater than zero.");
@@ -128,7 +119,6 @@ public class TransactionDb {
         return true;
     }
 
-    // Method to check if an account exists by account number
     public boolean doesAccountExist(String accountNumber) {
         String sql = "SELECT COUNT(*) FROM accounts WHERE account_number = ?";
 
@@ -148,7 +138,6 @@ public class TransactionDb {
         return false;
     }
 
-    // Method to perform credit operation with validation
     public boolean creditAmount(String accountNumber, BigDecimal amount) {
         if (!doesAccountExist(accountNumber)) {
             System.out.println("Account does not exist for credit.");
@@ -171,7 +160,6 @@ public class TransactionDb {
         return false;
     }
 
-    // Method to perform debit operation with validation
     public boolean debitAmount(String accountNumber, BigDecimal amount) {
         if (!doesAccountExist(accountNumber)) {
             System.out.println("Account does not exist for debit.");
@@ -195,7 +183,6 @@ public class TransactionDb {
         return false;
     }
 
-    // Method to perform transfer operation with validation
     public boolean transferAmount(String senderAccountNo, String receiverAccountNo, BigDecimal amount) {
         if (!doesAccountExist(senderAccountNo)) {
             System.out.println("Sender account does not exist for transfer.");
@@ -227,6 +214,7 @@ public class TransactionDb {
                 return false;
             }
 
+            // If everything is successful, commit the transaction
             connection.commit();
             return true;
         } catch (SQLException e) {
@@ -234,9 +222,7 @@ public class TransactionDb {
         }
         return false;
     }
-    
-    
-    
+
     public List<Transactions> getAllTransactions() {
         List<Transactions> transactionList = new ArrayList<>();
         String sql = "SELECT sender_accountno, receiver_accountno, transaction_type, amount, transaction_date FROM transactions";
@@ -252,7 +238,6 @@ public class TransactionDb {
                 BigDecimal amount = resultSet.getBigDecimal("amount");
                 Timestamp transactionDate = resultSet.getTimestamp("transaction_date");
 
-                // Use default values for fields not available in the SQL result
                 Transactions transaction = new Transactions(
                     senderAccountNo, 
                     receiverAccountNo, 

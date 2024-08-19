@@ -58,7 +58,7 @@ public class CustomerDb {
                 customer.setEmail(resultSet.getString("email"));
                 customer.setPhone(resultSet.getString("phone"));
                 customer.setAddress(resultSet.getString("address"));
-                customer.setAddress(resultSet.getString("password"));
+                customer.setPassword(resultSet.getString("password"));
 
 
                 customers.add(customer);
@@ -92,8 +92,7 @@ public class CustomerDb {
                     customer.setEmail(resultSet.getString("email"));
                     customer.setPhone(resultSet.getString("phone"));
                     customer.setAddress(resultSet.getString("address"));
-                   
-
+                    customer.setPassword(resultSet.getString("password"));
                     customers.add(customer);  // Add customer to the list
                 }
             }

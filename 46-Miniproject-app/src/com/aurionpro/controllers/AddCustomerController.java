@@ -48,7 +48,7 @@ public class AddCustomerController extends HttpServlet {
         customer.setEmail(email);
         customer.setPhone(phone);
         customer.setAddress(address);
-        customer.setAddress("password");
+        customer.setPassword(password);
 
         
         CustomerDb customerDb = new CustomerDb();
