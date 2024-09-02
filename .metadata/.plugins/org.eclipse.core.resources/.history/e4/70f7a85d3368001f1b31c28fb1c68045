@@ -1,0 +1,6 @@
+package com.aurionpro.project.entities;
+
+public enum TransactionType {
+    DEPOSIT,
+    WITHDRAWAL
+}

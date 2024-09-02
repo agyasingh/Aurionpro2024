@@ -1,0 +1,5 @@
+package com.aurionpro.jpacrud.exception;
+
+public class GlobalExceptionHandler {
+
+}

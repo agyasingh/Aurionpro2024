@@ -1,0 +1,5 @@
+package com.aurionpro.jpacrud.controller;
+
+public class EmailController {
+
+}

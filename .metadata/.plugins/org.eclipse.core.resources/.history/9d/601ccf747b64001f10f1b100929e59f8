@@ -1,0 +1,21 @@
+package com.aurionpro.project.dto;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import com.aurionpro.project.enums.TransactionStatus;
+import com.aurionpro.project.enums.TransactionType;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class TransactionDto {
+
+    private Long transactionId;
+    private Double amount;
+    private String transactionDate;
+    private TransactionStatus transactionStatus;
+    private TransactionType transactionType;
+    private Long accountId;  // To avoid circular reference
+    private Long customerId; // To avoid circular reference
+}

@@ -1,0 +1,15 @@
+package com.aurionpro.project.dto;
+
+import lombok.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class TransactionDto {
+    private Double amount;
+    private String transactionDate;
+    private String transactionStatus;
+    private String transactionType;
+    private String senderAccountNumber;
+    private String receiverAccountNumber;
+}

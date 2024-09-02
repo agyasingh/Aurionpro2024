@@ -1,0 +1,21 @@
+package com.aurionpro.jwtsecured.security;
+
+import org.hibernate.annotations.Comment;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
+
+@Component
+
+public class JwtAuthentcationFilter {
+	
+	@Autowired
+	private JwtTokenProvider jwtTokenProvider;
+	
+	@Autowired
+	private UserDetailsService userDetailService;
+	
+	
+	
+
+}

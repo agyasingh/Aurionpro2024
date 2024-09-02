@@ -1,0 +1,66 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.dto.AdminDto;
+import com.aurionpro.project.entities.Admin;
+import com.aurionpro.project.entities.User;
+import com.aurionpro.project.entities.UserRole;
+import com.aurionpro.project.exceptions.LoginException;
+import com.aurionpro.project.exceptions.ValidationException;
+import com.aurionpro.project.repositories.AdminRepository;
+import com.aurionpro.project.repositories.UserRepository;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class AdminServiceImpl implements AdminService{
+
+    @Autowired
+    private AdminRepository adminRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
+   
+
+
+    @Override
+    public Admin assignUserToAdmin(Long userId, AdminDto adminDto) {
+       
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ValidationException("User not found"));
+
+        
+        Admin admin = new Admin();
+        admin.setUsername(adminDto.getUsername());
+        admin.setPassword(adminDto.getPassword());
+        admin.setEmail(adminDto.getEmail());
+        admin.setUser(user);
+        
+        userRepository.save(user);
+        return adminRepository.save(admin);
+    }
+
+
+    @Override
+    public Admin login(AdminDto adminDto) {
+        Optional<Admin> optionalAdmin = adminRepository.findByEmail(adminDto.getEmail());
+
+        if (optionalAdmin.isEmpty()) {
+            throw new LoginException("Admin with this email does not exist.");
+        }
+
+        Admin admin = optionalAdmin.get();
+        // Directly compare raw passwords (not recommended for production)
+        if (!adminDto.getPassword().equals(admin.getPassword())) {
+            throw new LoginException("Invalid password.");
+        }
+
+        return admin;
+    }
+    
+   
+}

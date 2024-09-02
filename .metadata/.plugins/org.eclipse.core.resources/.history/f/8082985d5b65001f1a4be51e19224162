@@ -1,0 +1,95 @@
+package com.aurionpro.project.controllers;
+
+import com.aurionpro.project.dto.AdminDto;
+import com.aurionpro.project.dto.CustomerDto;
+import com.aurionpro.project.entities.Account;
+import com.aurionpro.project.services.AccountService;
+import com.aurionpro.project.services.AdminService;
+import com.aurionpro.project.services.CustomerService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.aurionpro.project.entities.*;
+
+@RestController
+@RequestMapping("/bank")
+public class AdminController {
+	
+	@Autowired
+	private CustomerService customerService;
+
+    @Autowired
+    private AccountService accountService;
+    
+    @Autowired
+    private AdminService adminService;
+
+    
+    @PostMapping("/admin")
+    public ResponseEntity<Admin> assignUserToAdmin(
+            @RequestParam Long userId,
+            @RequestBody AdminDto adminDto) {
+        
+        Admin assignedAdmin = adminService.assignUserToAdmin(userId, adminDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(assignedAdmin);
+    }
+
+    @PostMapping("/accounts")
+    public ResponseEntity<Account> addAccount(
+            @RequestParam long customerId, 
+            @RequestBody Account account) {
+        Account dbaccount = accountService.addAccount(customerId, account);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dbaccount);
+    }
+    
+    @PostMapping("/addcustomers")
+    public ResponseEntity<CustomerDto> addCustomer(@Valid @RequestBody CustomerDto customerDto, HttpSession session) {
+        CustomerDto newCustomer = customerService.addCustomer(customerDto, session);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newCustomer);
+    }
+    
+    
+    @GetMapping("/customers")
+    public List<Customer> getAllCustomers() {
+        return customerService.getAllCustomers();
+    }
+    
+    @GetMapping("/accounts")
+    public List<Account> getAllAccounts() {
+        return accountService.getAllAccounts();
+    }
+    
+    @GetMapping("/customers/search")
+    public List<Customer> findCustomerByName(@RequestParam String name) {
+        return customerService.findCustomerByName(name);
+    }
+    
+    @GetMapping("/accounts/{accountId}")
+    public ResponseEntity<Account> getAccountById(@PathVariable Long accountId) {
+        Account account = accountService.getAccountById(accountId);
+            return ResponseEntity.ok(account);
+ 	
+    }
+    
+    @DeleteMapping("/customers/{customerId}")
+    public String deleteCustomer(@PathVariable Long customerId) {
+        customerService.deleteCustomerById(customerId);
+       return "customer deleted successfully";
+    }
+    
+    @DeleteMapping("/accounts")
+    public ResponseEntity<Void> deleteAccount(@RequestParam Long accountId) {
+        accountService.deleteAccountById(accountId);
+        return ResponseEntity.noContent().build(); // Return 204 No Content on successful deletion
+    }
+
+
+
+}

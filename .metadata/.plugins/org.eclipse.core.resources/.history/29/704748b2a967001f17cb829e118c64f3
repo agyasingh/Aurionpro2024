@@ -1,0 +1,37 @@
+package com.aurionpro.project.controllers;
+
+import com.aurionpro.project.entities.Role;
+import com.aurionpro.project.entities.User;
+import com.aurionpro.project.services.RoleService;
+import com.aurionpro.project.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/bank")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/users")
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        User createdUser = userService.addUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
+    
+    @Autowired
+    private RoleService roleService;
+
+    @PostMapping
+    public ResponseEntity<Role> addRole(@RequestBody String rolename) {
+       
+            String role = roleService.createRole(rolename);
+            return new ResponseEntity<>(role, HttpStatus.CREATED);
+        
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+     
+    }
+}

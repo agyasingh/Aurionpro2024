@@ -1,0 +1,9 @@
+package com.aurionpro.project.services;
+
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.dto.AdminDTO;
+
+public interface AdminService {
+    boolean login(AdminDTO adminDTO);
+}

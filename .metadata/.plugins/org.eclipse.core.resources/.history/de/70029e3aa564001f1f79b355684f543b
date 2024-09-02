@@ -1,0 +1,56 @@
+package com.aurionpro.project.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.aurionpro.project.dto.CustomerDto;
+import com.aurionpro.project.entities.Customer;
+import com.aurionpro.project.repositories.CustomerRepository;
+
+import jakarta.validation.ValidationException;
+
+@Service
+public class CustomerServiceImpl implements CustomerService{
+
+	 @Autowired
+	    private CustomerRepository customerRepository;
+
+	    @Override
+	    public Customer addCustomer(CustomerDto customerDto) {
+	       
+	        
+	        if (customerDto.getFirstName() == null || customerDto.getFirstName().trim().isEmpty()) {
+	            throw new ValidationException("First name is mandatory");
+	        }
+	        
+	        if (customerDto.getLastName() == null || customerDto.getLastName().trim().isEmpty()) {
+	            throw new ValidationException("Last name is mandatory");
+	        }
+	        
+	        if (customerDto.getEmail() == null || customerDto.getEmail().trim().isEmpty()) {
+	            throw new ValidationException("Email is mandatory");
+	        }
+	        
+	        if (customerDto.getPhone() == null || customerDto.getPhone().trim().isEmpty()) {
+	            throw new ValidationException("Phone number is mandatory");
+	        }
+	        
+	        if (customerDto.getAddress() == null || customerDto.getAddress().trim().isEmpty()) {
+	            throw new ValidationException("Address is mandatory");
+	        }
+
+	        
+	        
+	        Customer customer = new Customer();
+	        customer.setFirstName(customerDto.getFirstName());
+	        customer.setLastName(customerDto.getLastName());
+	        customer.setPassword(customerDto.getPassword());
+	        customer.setEmail(customerDto.getEmail());
+	        customer.setPhone(customerDto.getPhone());
+	        customer.setAddress(customerDto.getAddress());
+
+	       
+	        return customerRepository.save(customer);
+	    }
+	}
+

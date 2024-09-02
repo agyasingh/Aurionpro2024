@@ -1,0 +1,12 @@
+package com.aurionpro.project.errors;
+
+public class ErrorResponse {
+	
+		
+		private int statusCode;
+		private String errorMessage;
+		private long timestamp;
+		
+	
+
+}

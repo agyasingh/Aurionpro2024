@@ -1,0 +1,16 @@
+package com.aurionpro.security.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import com.aurionpro.security.entity.*;
+@Service
+public interface CustomerService {
+//list of allcustomers
+	List<Customer> getAllCustomers();
+	
+	
+	//list of particular customers
+	
+	Customer getCustomerById();
+}

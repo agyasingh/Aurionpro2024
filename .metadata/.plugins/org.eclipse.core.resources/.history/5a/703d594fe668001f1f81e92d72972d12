@@ -1,0 +1,5 @@
+package com.aurionpro.security.repository;
+
+public interface CustomerRepository {
+
+}

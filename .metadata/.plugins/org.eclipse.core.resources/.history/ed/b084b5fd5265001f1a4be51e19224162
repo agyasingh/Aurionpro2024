@@ -1,0 +1,130 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.dto.CustomerDto;
+import com.aurionpro.project.entities.Customer;
+import com.aurionpro.project.entities.User;
+import com.aurionpro.project.entities.UserRole;
+import com.aurionpro.project.exceptions.ValidationException;
+import com.aurionpro.project.repositories.CustomerRepository;
+import com.aurionpro.project.repositories.UserRepository;
+import com.aurionpro.project.repositories.UserRoleRepository;
+
+import jakarta.servlet.http.HttpSession;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class CustomerServiceImpl implements CustomerService {
+
+    @Autowired
+    private CustomerRepository customerRepository;
+   
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
+    @Override
+    public Customer assignUserToCustomer(Long customerId, Long userId) {
+       
+        Customer customer = customerRepository.findById(customerId)
+            .orElseThrow(() -> new ValidationException("Customer not found"));
+
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ValidationException("User not found"));
+
+     
+        customer.setUser(user);
+
+       // user.setRoles(roles);
+
+        userRepository.save(user);
+        return customerRepository.save(customer);
+    }
+
+
+    @Override
+    public CustomerDto addCustomer(CustomerDto customerDto, HttpSession session) {
+        
+        validateCustomerDto(customerDto);
+
+        Customer customer = toCustomerMapper(customerDto);
+
+       
+        Customer savedCustomer = customerRepository.save(customer);
+
+
+        return toCustomerDtoMapper(savedCustomer);
+    }
+
+    private void validateCustomerDto(CustomerDto customerDto) {
+        if (customerDto.getFirstName() == null || customerDto.getFirstName().trim().isEmpty()) {
+            throw new ValidationException("First name is mandatory");
+        }
+        if (customerDto.getLastName() == null || customerDto.getLastName().trim().isEmpty()) {
+            throw new ValidationException("Last name is mandatory");
+        }
+        if (customerDto.getEmail() == null || customerDto.getEmail().trim().isEmpty()) {
+            throw new ValidationException("Email is mandatory");
+        }
+        if (customerDto.getPhone() == null || customerDto.getPhone().trim().isEmpty()) {
+            throw new ValidationException("Phone number is mandatory");
+        }
+        if (customerDto.getAddress() == null || customerDto.getAddress().trim().isEmpty()) {
+            throw new ValidationException("Address is mandatory");
+        }
+        if (customerDto.getPassword() == null || customerDto.getPassword().trim().isEmpty()) {
+            throw new ValidationException("Password is mandatory");
+        }
+    }
+
+    private Customer toCustomerMapper(CustomerDto customerDto) {
+        Customer customer = new Customer();
+        customer.setFirstName(customerDto.getFirstName());
+        customer.setUsername(customerDto.getUsername());
+        customer.setLastName(customerDto.getLastName());
+        customer.setEmail(customerDto.getEmail());
+        customer.setPhone(customerDto.getPhone());
+        customer.setAddress(customerDto.getAddress());
+        customer.setPassword(customerDto.getPassword());
+        return customer;
+    }
+
+    private CustomerDto toCustomerDtoMapper(Customer customer) {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setFirstName(customer.getFirstName());
+        customerDto.setUsername(customer.getUsername());
+        customerDto.setLastName(customer.getLastName());
+        customerDto.setEmail(customer.getEmail());
+        customerDto.setPhone(customer.getPhone());
+        customerDto.setAddress(customer.getAddress());
+        customerDto.setPassword(customer.getPassword());
+        return customerDto;
+    }
+    
+    @Override
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
+    }
+    
+    
+    @Override
+    public List<Customer> findCustomerByName(String name) {
+        return customerRepository.findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(name, name);
+    }
+    
+    @Override
+    public void deleteCustomerById(Long customerId) {
+        if (!customerRepository.existsById(customerId)) {
+            throw new ValidationException("Customer with ID not found");
+        }
+        customerRepository.deleteById(customerId);
+    }
+
+	
+}

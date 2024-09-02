@@ -1,0 +1,5 @@
+package com.aurionpro.security.controller;
+
+public class CustomerController {
+
+}

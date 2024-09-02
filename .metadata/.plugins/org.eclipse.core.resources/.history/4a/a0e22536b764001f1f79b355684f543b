@@ -1,0 +1,9 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.dto.AccountDto;
+
+public interface AccountService {
+
+	AccountDto addAccount(long customerId, AccountDto accountDto);
+
+}

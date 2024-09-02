@@ -1,0 +1,36 @@
+package com.aurionpro.project.dto;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+import java.time.LocalDate;
+
+import com.aurionpro.project.entities.*;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AccountDto {
+
+	    @NotBlank(message = "Account number is mandatory")
+	   
+	    private String accountNumber;
+
+	    @NotNull(message = "Account type is mandatory")
+	    private AccountType accountType;
+
+	    @NotNull(message = "Balance is mandatory")
+	    @Positive(message = "Balance must be a positive number")
+	    private Double balance;
+
+	   
+	    @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Date must be in YYYY-MM-DD format")
+	    private LocalDate createdAt;
+	    
+}

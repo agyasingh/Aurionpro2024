@@ -1,0 +1,29 @@
+package com.aurionpro.project.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.aurionpro.project.dto.CustomerDto;
+import com.aurionpro.project.entities.Customer;
+import com.aurionpro.project.repositories.CustomerRepository;
+
+public class CustomerServiceImpl implements CustomerService{
+
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Override
+    public Customer addCustomer(CustomerDto customerDto) {
+        // Convert DTO to entity
+        Customer customer = new Customer();
+        customer.setFirstName(customerDto.getFirstName());
+        customer.setLastName(customerDto.getLastName());
+        customer.setPassword(customerDto.getPassword());
+        customer.setEmail(customerDto.getEmail());
+        customer.setPhone(customerDto.getPhone());
+        customer.setAddress(customerDto.getAddress());
+
+        // Save customer entity to the database
+        return customerRepository.save(customer);
+    }
+}

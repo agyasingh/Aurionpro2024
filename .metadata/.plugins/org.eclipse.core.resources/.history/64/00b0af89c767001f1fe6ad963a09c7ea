@@ -1,0 +1,58 @@
+package com.aurionpro.project.services;
+
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.aurionpro.project.dto.UserDto;
+import com.aurionpro.project.entities.Admin;
+import com.aurionpro.project.entities.Customer;
+import com.aurionpro.project.entities.User;
+import com.aurionpro.project.repositories.AdminRepository;
+import com.aurionpro.project.repositories.CustomerRepository;
+import com.aurionpro.project.repositories.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	 @Autowired
+	    private UserRepository userRepository;
+	 
+	 @Autowired
+	 private CustomerRepository customerRepository;
+	 
+	 @Autowired
+	 private AdminRepository adminRepository;
+
+	 @Override
+	 public UserDto addUser(User user) {
+	     // Save the user first
+	     User savedUser = userRepository.save(user);
+
+	     // Handle role assignment
+	     if (savedUser.getRoles().stream().anyMatch(role -> role.getRolename().equals("ROLE_ADMIN"))) {
+	         Admin admin = new Admin();
+	         admin.setUser(savedUser);
+	         adminRepository.save(admin);
+	     } else if (savedUser.getRoles().stream().anyMatch(role -> role.getRolename().equals("ROLE_CUSTOMER"))) {
+	         Customer customer = new Customer();
+	         customer.setUser(savedUser);
+	         customerRepository.save(customer);
+	     }
+
+	     // Convert User to UserDto
+	     UserDto userDto = toUserDto(savedUser);
+	     return userDto;
+	 }
+
+	 private UserDto toUserDto(User user) {
+	     // Your logic to convert User to UserDto
+	     UserDto userDto = new UserDto();
+	     
+	     userDto.setUsername(user.getUsername());
+	     userDto.setRoles(user.getRoles());
+	     // Add other fields as needed
+	     return userDto;
+	 }
+}

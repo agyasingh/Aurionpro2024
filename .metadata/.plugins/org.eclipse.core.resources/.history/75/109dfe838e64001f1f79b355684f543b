@@ -1,0 +1,36 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.dto.AdminDto;
+import com.aurionpro.project.entities.Admin;
+import com.aurionpro.project.repositories.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import javax.security.auth.login.LoginException;
+import java.util.Optional;
+
+@Service
+public class AdminServiceImpl implements AdminService{
+
+    @Autowired
+    private AdminRepository adminRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public Admin login(AdminDto adminDto) throws LoginException {
+        Optional<Admin> optionalAdmin = adminRepository.findByEmail(adminDto.getEmail());
+
+        if (optionalAdmin.isEmpty()) {
+            throw new LoginException("Admin with this email does not exist.");
+        }
+
+        Admin admin = optionalAdmin.get();
+        if (!passwordEncoder.matches(adminDto.getPassword(), admin.getPassword())) {
+            throw new LoginException("Invalid password.");
+        }
+
+        return admin;
+    }
+}

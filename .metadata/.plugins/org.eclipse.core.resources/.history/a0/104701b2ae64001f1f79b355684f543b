@@ -1,0 +1,28 @@
+package com.aurionpro.project.controllers;
+
+
+import com.aurionpro.project.dto.CustomerDto;
+import com.aurionpro.project.entities.Customer;
+import com.aurionpro.project.services.CustomerService;
+
+import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+
+@RestController
+@RequestMapping("/bank")
+public class AdminController {
+
+    @Autowired
+    private CustomerService customerService;
+
+    @PostMapping("/addcustomers")
+    public ResponseEntity<CustomerDto> addCustomer(@Valid @RequestBody CustomerDto customerDto) {
+        CustomerDto newCustomer = customerService.addCustomer(customerDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newCustomer);
+    }
+}

@@ -1,0 +1,7 @@
+package com.aurionpro.jwtsecured.security;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public class CustomUserDetailService implements UserDetailsService{
+
+}

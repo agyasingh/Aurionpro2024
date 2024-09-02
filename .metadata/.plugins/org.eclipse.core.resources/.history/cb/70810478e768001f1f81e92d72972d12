@@ -1,0 +1,22 @@
+package com.aurionpro.security.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.aurionpro.security.entity.*;
+import com.aurionpro.security.service.CustomerService;
+
+@RestController
+@RequestMapping("/api")
+public class CustomerController {
+
+	@Autowired
+	private CustomerService customerService;
+	
+	public ResponseEntity<List<Customer>>  getAllCustomers(){
+		return ResponseEntity.ok(customerService.getAllCustomers());
+	}
+}

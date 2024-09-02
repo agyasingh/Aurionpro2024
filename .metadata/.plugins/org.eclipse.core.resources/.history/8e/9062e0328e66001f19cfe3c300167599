@@ -1,0 +1,5 @@
+package com.aurionpro.jwtsecured.services;
+
+public class AuthServiceImpl {
+
+}

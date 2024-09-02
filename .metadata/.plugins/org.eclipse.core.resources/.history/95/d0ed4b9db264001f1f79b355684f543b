@@ -1,0 +1,18 @@
+package com.aurionpro.project.dto;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import com.aurionpro.project.entities.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AccountDto {
+
+    private Long accountId;
+    private String accountNumber;
+    private AccountType accountType;
+    private Double balance;
+    private String createdAt;
+}

@@ -1,0 +1,5 @@
+package com.aurionpro.project.entities;
+
+public enum UserRole {
+ADMIN,CUSTOMER
+}

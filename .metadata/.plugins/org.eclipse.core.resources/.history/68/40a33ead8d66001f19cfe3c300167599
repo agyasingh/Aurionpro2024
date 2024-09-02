@@ -1,0 +1,11 @@
+package com.aurionpro.jwtsecured.dto;
+
+public class RegistrationDto {
+//register user
+//login user
+	private String username;
+	
+	private String password;
+	
+	private String role;
+}

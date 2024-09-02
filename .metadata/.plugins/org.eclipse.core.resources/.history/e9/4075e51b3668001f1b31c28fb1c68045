@@ -1,0 +1,7 @@
+package com.aurionpro.project.dto;
+
+public class WithdrawDto {
+	 private String accountNumber;
+	    private Double amount;
+	    private String transactionDate;
+}

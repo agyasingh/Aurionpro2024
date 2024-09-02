@@ -1,0 +1,102 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.dto.TransactionDto;
+import com.aurionpro.project.entities.Account;
+import com.aurionpro.project.entities.Transaction;
+import com.aurionpro.project.entities.TransactionStatus;
+import com.aurionpro.project.entities.TransactionType;
+import com.aurionpro.project.repositories.AccountRepository;
+import com.aurionpro.project.repositories.TransactionRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class TransactionServiceImpl implements TransactionService {
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+    @Transactional
+    public TransactionDto transfer(TransactionDto transactionDto) {
+        // Convert DTO to entity
+        Account senderAccount = accountRepository.findByAccountNumber(transactionDto.getSenderAccountNumber());
+        Account receiverAccount = accountRepository.findByAccountNumber(transactionDto.getReceiverAccountNumber());
+
+        if (senderAccount == null || receiverAccount == null) {
+            throw new RuntimeException("Invalid account number(s)");
+        }
+
+        // Withdraw from sender account
+        withdraw(senderAccount, transactionDto.getAmount());
+
+        // Credit to receiver account
+        credit(receiverAccount, transactionDto.getAmount());
+
+        // Create transaction entity
+        Transaction transaction = new Transaction();
+        transaction.setAmount(transactionDto.getAmount());
+        transaction.setTransactionDate(transactionDto.getTransactionDate());
+        transaction.setTransactionStatus(TransactionStatus.SUCCESS);
+        transaction.setTransactionType(TransactionType.TRANSFER);
+        transaction.setSenderAccount(senderAccount);
+        transaction.setReceiverAccount(receiverAccount);
+
+        // Save transaction
+        Transaction savedTransaction = transactionRepository.save(transaction);
+
+        // Convert back to DTO
+        return toTransactionDto(savedTransaction);
+    }
+
+    @Transactional
+    public void withdraw(Account account, Double amount) {
+        if (account.getBalance() < amount) {
+            throw new RuntimeException("Insufficient balance");
+        }
+
+        account.setBalance(account.getBalance() - amount);
+        accountRepository.save(account);
+
+        // Log the withdrawal transaction
+        Transaction transaction = new Transaction();
+        transaction.setAmount(amount);
+        transaction.setTransactionDate(java.time.LocalDate.now().toString());
+        transaction.setTransactionStatus(TransactionStatus.SUCCESS);
+        transaction.setTransactionType(TransactionType.WITHDRAWAL);
+        transaction.setSenderAccount(account);
+        transactionRepository.save(transaction);
+    }
+
+    @Transactional
+    public void credit(Account account, Double amount) {
+        account.setBalance(account.getBalance() + amount);
+        accountRepository.save(account);
+
+        // Log the credit transaction
+        Transaction transaction = new Transaction();
+        transaction.setAmount(amount);
+        transaction.setTransactionDate(java.time.LocalDate.now().toString());
+        transaction.setTransactionStatus(TransactionStatus.SUCCESS);
+        transaction.setTransactionType(TransactionType.CREDIT);
+        transaction.setReceiverAccount(account);
+        transactionRepository.save(transaction);
+    }
+
+    private TransactionDto toTransactionDto(Transaction transaction) {
+        // Your logic to convert Transaction to TransactionDto
+        TransactionDto transactionDto = new TransactionDto();
+        transactionDto.setAmount(transaction.getAmount());
+        transactionDto.setTransactionDate(transaction.getTransactionDate());
+        transactionDto.setTransactionStatus(transaction.getTransactionStatus());
+        transactionDto.setTransactionType(transaction.getTransactionType());
+        transactionDto.setSenderAccountNumber(transaction.getSenderAccount().getAccountNumber());
+        transactionDto.setReceiverAccountNumber(transaction.getReceiverAccount().getAccountNumber());
+        // Add other fields as needed
+        return transactionDto;
+    }
+}

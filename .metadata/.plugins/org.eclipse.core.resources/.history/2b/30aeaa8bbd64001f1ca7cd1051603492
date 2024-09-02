@@ -1,0 +1,54 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.entities.Account;
+import com.aurionpro.project.entities.Customer;
+import com.aurionpro.project.entities.AccountNumberGenerator;
+import com.aurionpro.project.exceptions.ValidationException;
+import com.aurionpro.project.repositories.AccountRepository;
+import com.aurionpro.project.repositories.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AccountServiceImpl implements AccountService {
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private AccountNumberGenerator accountNumberGenerator;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Override
+    public Account addAccount(long customerId, Account account) {
+        // Validate account
+        validateAccount(account);
+
+        // Generate a unique account number
+        account.setAccountNumber(accountNumberGenerator.generateAccountNumber());
+
+        // Fetch customer by ID
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new ValidationException("Customer with ID " + customerId + " not found"));
+        
+        // Set customer to account
+        account.setCustomer(customer);
+
+        // Set creation date
+        account.setCreatedAt(LocalDate.now());
+
+        // Save account entity to the database
+        return accountRepository.save(account);
+    }
+
+    private void validateAccount(Account account) {
+        if (account.getAccountType() == null) {
+            throw new ValidationException("Account type is mandatory");
+        }
+        if (account.getBalance() == null || account.getBalance() < 0) {
+            throw new ValidationException("Balance cannot be negative");
+        }
+    }
+}

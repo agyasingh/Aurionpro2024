@@ -1,0 +1,10 @@
+package com.aurionpro.jwtsecured.security;
+
+import org.springframework.stereotype.Component;
+
+//this class will generate the token
+
+@Component
+public class JwtTokenProvider {
+
+}

@@ -1,0 +1,10 @@
+package com.aurionpro.jpacrud.services;
+
+import com.aurionpro.jpacrud.entities.*;
+
+//Interface
+public interface EmailService {
+ String sendSimpleMail(EmailDetails details);
+
+ String sendMailWithAttachment(EmailDetails details);
+}

@@ -1,0 +1,5 @@
+package com.aurionpro.jwtsecured.repo;
+
+public interface UserRepository {
+
+}

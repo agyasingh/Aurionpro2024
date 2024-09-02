@@ -1,0 +1,5 @@
+package com.aurionpro.project.exceptions;
+
+public class AdminNotFoundException {
+
+}

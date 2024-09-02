@@ -1,0 +1,74 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.dto.CustomerDto;
+import com.aurionpro.project.entities.Customer;
+import com.aurionpro.project.exceptions.ValidationException;
+import com.aurionpro.project.repositories.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class CustomerServiceImpl implements CustomerService {
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Override
+    public CustomerDto addCustomer(CustomerDto customerDto) {
+        // Validate the input fields
+        validateCustomerDto(customerDto);
+
+        // Convert DTO to entity
+        Customer customer = toCustomerMapper(customerDto);
+
+        // Save customer entity to the database
+        Customer savedCustomer = customerRepository.save(customer);
+
+        // Convert saved entity back to DTO and return
+        return toCustomerDtoMapper(savedCustomer);
+    }
+
+    private void validateCustomerDto(CustomerDto customerDto) {
+        if (customerDto.getFirstName() == null || customerDto.getFirstName().trim().isEmpty()) {
+            throw new ValidationException("First name is mandatory");
+        }
+        if (customerDto.getLastName() == null || customerDto.getLastName().trim().isEmpty()) {
+            throw new ValidationException("Last name is mandatory");
+        }
+        if (customerDto.getEmail() == null || customerDto.getEmail().trim().isEmpty()) {
+            throw new ValidationException("Email is mandatory");
+        }
+        if (customerDto.getPhone() == null || customerDto.getPhone().trim().isEmpty()) {
+            throw new ValidationException("Phone number is mandatory");
+        }
+        if (customerDto.getAddress() == null || customerDto.getAddress().trim().isEmpty()) {
+            throw new ValidationException("Address is mandatory");
+        }
+        if (customerDto.getPassword() == null || customerDto.getPassword().trim().isEmpty()) {
+            throw new ValidationException("Password is mandatory");
+        }
+    }
+
+    private Customer toCustomerMapper(CustomerDto customerDto) {
+        Customer customer = new Customer();
+        customer.setFirstName(customerDto.getFirstName());
+        customer.setLastName(customerDto.getLastName());
+        customer.setEmail(customerDto.getEmail());
+        customer.setPhone(customerDto.getPhone());
+        customer.setAddress(customerDto.getAddress());
+        customer.setPassword(customerDto.getPassword());
+        return customer;
+    }
+
+    private CustomerDto toCustomerDtoMapper(Customer customer) {
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setFirstName(customer.getFirstName());
+        customerDto.setLastName(customer.getLastName());
+        customerDto.setEmail(customer.getEmail());
+        customerDto.setPhone(customer.getPhone());
+        customerDto.setAddress(customer.getAddress());
+        customerDto.setPassword(customer.getPassword());
+        return customerDto;
+    }
+}

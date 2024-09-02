@@ -1,0 +1,61 @@
+package com.aurionpro.processing.dataimport.config;
+
+import com.aurionpro.processing.entity.Employee;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@EnableBatchProcessing
+public class EmployeeBatchConfig {
+
+    @Autowired
+    private JobBuilderFactory jobBuilderFactory;
+
+    @Autowired
+    private StepBuilderFactory stepBuilderFactory;
+
+    @Bean
+    public ItemReader<Employee> employeeItemReader() {
+        // Return a configured ItemReader instance here
+        return null; // Replace with actual implementation
+    }
+
+    @Bean
+    public ItemProcessor<Employee, Employee> employeeItemProcessor() {
+        // Return a configured ItemProcessor instance here
+        return null; // Replace with actual implementation
+    }
+
+    @Bean
+    public ItemWriter<Employee> employeeItemWriter() {
+        // Return a configured ItemWriter instance here
+        return null; // Replace with actual implementation
+    }
+
+    @Bean
+    public Step step1() {
+        return stepBuilderFactory.get("step1")
+                .<Employee, Employee>chunk(10)
+                .reader(employeeItemReader())
+                .processor(employeeItemProcessor())
+                .writer(employeeItemWriter())
+                .build();
+    }
+
+    @Bean
+    public Job importUserJob() {
+        return jobBuilderFactory.get("importUserJob")
+                .flow(step1())
+                .end()
+                .build();
+    }
+}

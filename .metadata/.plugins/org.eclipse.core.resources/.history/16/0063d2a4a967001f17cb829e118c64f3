@@ -1,0 +1,9 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.entities.Role;
+
+public interface RoleService {
+
+
+Role createRole(String roleName);
+}

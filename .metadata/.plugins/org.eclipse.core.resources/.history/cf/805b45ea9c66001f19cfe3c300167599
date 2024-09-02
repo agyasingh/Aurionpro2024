@@ -1,0 +1,21 @@
+package com.aurionpro.jwtsecured.services;
+
+import com.aurionpro.jwtsecured.dto.LoginDto;
+import com.aurionpro.jwtsecured.dto.RegistrationDto;
+import com.aurionpro.jwtsecured.entities.User;
+
+public class AuthServiceImpl implements AuthService{
+
+	@Override
+	public User register(RegistrationDto regisration) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String login(LoginDto loginDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

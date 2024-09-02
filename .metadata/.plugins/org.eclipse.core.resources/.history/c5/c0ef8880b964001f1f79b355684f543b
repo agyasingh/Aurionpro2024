@@ -1,0 +1,59 @@
+package com.aurionpro.project.services;
+
+import com.aurionpro.project.dto.AccountDto;
+import com.aurionpro.project.entities.Account;
+import com.aurionpro.project.entities.AccountNumberGenerator;
+import com.aurionpro.project.exceptions.ValidationException;
+import com.aurionpro.project.repositories.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AccountServiceImpl implements AccountService {
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private AccountNumberGenerator accountNumberGenerator;
+
+    @Override
+    public AccountDto addAccount(AccountDto accountDto) {
+        validateAccountDto(accountDto);
+
+        Account account = toAccountMapper(accountDto);
+        
+
+        Account savedAccount = accountRepository.save(account);
+
+      
+        return toAccountDtoMapper(savedAccount);
+    }
+
+    private void validateAccountDto(AccountDto accountDto) {
+        if (accountDto.getAccountType() == null) {
+            throw new ValidationException("Account type is mandatory");
+        }
+        if (accountDto.getBalance() == null || accountDto.getBalance() < 0) {
+            throw new ValidationException("Balance cannot be negative");
+        }
+    }
+
+    private Account toAccountMapper(AccountDto accountDto) {
+        Account account = new Account();
+        account.setAccountNumber(accountNumberGenerator.generateAccountNumber());
+        account.setAccountType(accountDto.getAccountType());
+        account.setBalance(accountDto.getBalance());
+        account.setCreatedAt(accountDto.getCreatedAt()); 
+        return account;
+    }
+
+    private AccountDto toAccountDtoMapper(Account account) {
+        AccountDto accountDto = new AccountDto();
+        accountDto.setAccountNumber(account.getAccountNumber());
+        accountDto.setAccountType(account.getAccountType());
+        accountDto.setBalance(account.getBalance());
+        accountDto.setCreatedAt(account.getCreatedAt()); 
+        return accountDto;
+    }
+}

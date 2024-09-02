@@ -1,0 +1,12 @@
+package com.aurionpro.project.entities;
+
+import java.util.List;
+
+public class PageResponse {
+	private List<T> content;
+    private int pageNumber;
+    private int pageSize;
+    private long totalElements;
+    private int totalPages;
+    private boolean last;
+}

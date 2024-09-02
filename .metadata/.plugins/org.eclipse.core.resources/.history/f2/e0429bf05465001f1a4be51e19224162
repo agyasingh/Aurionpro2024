@@ -1,0 +1,18 @@
+package com.aurionpro.project.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.aurionpro.project.entities.User;
+import com.aurionpro.project.repositories.UserRepository;
+
+public class UserServiceImpl implements UserService {
+
+	 @Autowired
+	    private UserRepository userRepository;
+
+	    @Override
+	    public User addUser(User user) {
+	        // Perform any additional validation or processing if necessary
+	        return userRepository.save(user);
+	    }
+}

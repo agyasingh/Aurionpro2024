@@ -1,0 +1,16 @@
+package com.aurionpro.project.dto;
+
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AdminDto {
+
+    private Long adminId;
+    private String username;
+    private String email;
+}

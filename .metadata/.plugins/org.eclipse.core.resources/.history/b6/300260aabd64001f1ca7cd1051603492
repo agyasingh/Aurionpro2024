@@ -1,0 +1,22 @@
+package com.aurionpro.project.controllers;
+
+import com.aurionpro.project.entities.Account;
+import com.aurionpro.project.services.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/admin")
+public class AdminController {
+
+    @Autowired
+    private AccountService accountService;
+
+    @PostMapping("/accounts/{customerId}")
+    public ResponseEntity<Account> addAccount(@PathVariable long customerId, @RequestBody Account account) {
+        Account createdAccount = accountService.addAccount(customerId, account);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
+    }
+}

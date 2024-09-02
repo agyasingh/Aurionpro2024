@@ -1,0 +1,9 @@
+package com.aurionpro.jwtsecured.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.aurionpro.jwtsecured.entities.User;
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+}

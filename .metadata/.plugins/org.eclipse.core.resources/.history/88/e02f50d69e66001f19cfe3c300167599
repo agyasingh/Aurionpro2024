@@ -1,0 +1,6 @@
+
+ackage com.aurionpro.jwtsecured.services;
+
+public class UserServiceImpl {
+
+}

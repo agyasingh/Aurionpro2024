@@ -1,0 +1,5 @@
+package com.aurionpro.processing.repository;
+
+public interface EmployeeRepository {
+
+}

@@ -1,0 +1,25 @@
+package com.aurionpro.project.services;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.aurionpro.project.dto.CustomerDto;
+import com.aurionpro.project.entities.*;
+
+import jakarta.servlet.http.HttpSession;
+
+@Service
+public interface CustomerService {
+	
+     //adding customer
+	 CustomerDto addCustomer(CustomerDto customerDto, HttpSession session);
+	 
+	 //Here we are getting all the customers
+	 List<Customer> getAllCustomers();
+	 
+	 //finding customer by name
+	 List<Customer> findCustomerByName(String name);
+	 
+	
+}
